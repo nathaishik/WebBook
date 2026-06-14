@@ -1,0 +1,546 @@
+:root {
+     --active-blur: 50px;
+    --active-base: color-mix(in srgb, var(--primary) 50%, var(--bg-contrast) 50%);
+    --active-color: hsl(from var(--active-base) h s l / 0.1);
+    --active-contrast: contrast-color(var(--active-base));
+    --active-shadow: 0 0 10px hsl(from var(--active-color) h s l / 0.1);
+    --border-color: hsl(from var(--active-color) h s l / 0.3);
+}
+
+
+.app {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    height: 100svh;
+    position: sticky;
+    top: 0;
+    overflow-y: hidden;
+    /* width: fit-content; */
+}
+
+.new-button {
+    /* height: 2rem; */
+    cursor: pointer;
+    border-radius: 100vw;
+    corner-shape: round;
+    border: none;
+    aspect-ratio: 1/1;
+    font-size: inherit;
+    .material-symbols-rounded {
+        translate: 0 0.2rem;
+    }
+    /* margin-inline: var(--padding-inline); */
+    /* transition: margin 0.2s ease-out; */
+
+}
+
+.bar {
+    display: flex;
+    flex-direction: column;
+    margin-block: var(--padding-inline);
+    height: auto;
+    max-height: 100svh;
+    overflow-y: hidden;
+    width: 19svw;
+    
+     /* &.notebook-bar {
+        background-color: var(--fg);
+        color: var(--bg);
+    } */
+
+    ul {
+        list-style-type: none;
+        display: grid;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0;
+        margin-top: 1rem;
+        height: inherit;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scrollbar-color: hsl(from var(--active-base) h s l / 0.5) transparent;
+        scroll-snap-type: proximity;
+
+
+        li {
+            cursor: pointer;
+            display: grid;
+            grid-template-areas: "first last...";
+            grid-template-columns: 62% auto;
+            height: 3rem;
+            align-items: center;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            margin-inline: calc(var(--padding-inline) / 2);
+
+            
+            > * {
+                height: 100%;
+            }
+            
+            > :nth-child(1) {
+                padding-inline: var(--padding-inline);
+                grid-area: "first";
+                text-wrap-mode: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: flex;
+                align-items: center;
+            }
+            
+            
+            &:hover:not(.active) {
+                background-color: hsl(from var(--active-color) h s l);
+                transition: var(--transition);
+            }
+
+            &.active {
+                /* background-color: var(--active-color); */
+                transition: var(--transition);
+                backdrop-filter: blur(var(--active-blur));
+                background-color: var(--active-color);
+                outline: transparent;
+                border-color: var(--border-color);
+                box-shadow: var(--active-shadow);
+                
+            }
+            
+            /* &.active::before, &.active::after {
+                content: '';
+                position: absolute;
+                width: var(--border-radius);
+                height: var(--border-radius);
+                right: 0;
+                background: red;
+            }
+            
+            &.active::before {
+                border-radius: 0 0 100vw 0;
+                top: calc(var(--border-radius) * -1);
+                box-shadow: 5px 5px 0 5px var(--active-color);
+            }
+            
+            &.active::after {
+                border-radius: 0 100vw 0 0;
+                bottom: calc(var(--border-radius) * -1);
+            } */
+
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                /* padding: 0.25rem; */
+                /* margin-left: 0.5rem; */
+                font-size: inherit;
+                box-sizing: border-box;
+                color: hsl(from var(--fg) h s l / 0.6);
+                border-radius: var(--border-radius);
+                transition: 0.1s ease-in;
+                transition: 0.1s ease-in;
+                
+                &:hover {
+                    color: var(--fg);
+                    background-color: hsl(from var(--primary) h s l / 0.6);
+                    transition: 0.1s ease-in;
+                }
+            }
+
+            input[type=text], select {
+                /* margin: ; */
+                padding-inline: var(--padding-inline);
+                font-size: inherit;
+                border: none;
+                outline: none;
+                width: 100%;
+                /* height: 80%; */
+                border-radius: var(--border-radius);
+                background-color: var(--active-color);
+            }
+        }
+    }
+
+    .bar-heading {
+        font-size: var(--step-5);
+        font-family: var(--serif-font);
+        font-weight: 500;
+        padding-inline: var(--padding-inline);
+        margin-block: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+    }
+}
+
+.notes-bar {
+    background-color: var(--active-color);
+    backdrop-filter: var(--active-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+
+.view-notes, .empty-page {
+    font-size: 18px;
+    padding: calc(var(--padding-inline) * 2) calc(var(--padding-inline) * 3);
+    /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1440,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+/* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1440,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  --step--2: clamp(0.72rem, 0.8017rem + -0.0907vw, 0.7813rem);
+  --step--1: clamp(0.9rem, 0.95rem + -0.0556vw, 0.9375rem);
+  --step-0: clamp(1.125rem, 1.125rem + 0vw, 1.125rem);
+  --step-1: clamp(1.35rem, 1.3313rem + 0.0833vw, 1.4063rem);
+  --step-2: clamp(1.62rem, 1.5741rem + 0.2042vw, 1.7578rem);
+  --step-3: clamp(1.944rem, 1.8596rem + 0.3752vw, 2.1973rem);
+  --step-4: clamp(2.3328rem, 2.1949rem + 0.613vw, 2.7466rem);
+  --step-5: clamp(2.7994rem, 2.5881rem + 0.9391vw, 3.4332rem);
+  --step-6: clamp(3.3592rem, 3.0485rem + 1.3812vw, 4.2915rem);
+
+
+    h1 {
+        font-size: var(--step-5);
+    }
+
+    h2 {
+        font-size: var(--step-4);
+    }
+
+    h3 {
+        font-size: var(--step-3);
+    }
+
+    h4 {
+        font-size: var(--step-2);
+    }
+
+    h5 {
+        font-size: var(--step-1);
+    }
+
+    p {
+        font-size: var(--step-0);
+    }
+
+    small {
+        font-size: var(--step--1);
+    }
+
+    h1, h2, h3, h4, h5 {
+        letter-spacing: -0.1rem;
+    }
+
+
+}
+
+.note-title {
+    font-size: var(--step-6);
+    font-family: var(--serif-font);
+    font-weight: 500;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+}
+
+.notebook-name {
+    font-size: var(--step--1);
+    /* font-family: var(--serif-font); */
+    display: flex;
+    gap: 1rem;
+    opacity: 0.6;
+}
+
+.note-meta {
+    font-size: var(--step--1);
+    opacity: 0.6;
+
+    span {
+        opacity: 0.8;
+    }
+}
+
+
+.tiptap {
+    /* padding: 0; */
+    margin-top: calc(var(--padding-inline) * 2);
+    outline: transparent;
+
+    * {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+    /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1440,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+
+
+}
+
+.tiptap p.is-editor-empty:first-child::before, .tiptap p.is-empty::before {
+  color: hsl(from var(--fg) h s l / 0.3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+
+.tiptap p.is-editor-empty:first-child .ProseMirror-trailingBreak, .tiptap p.is-empty .ProseMirror-trailingBreak  {
+  display: none !important;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  font-size: inherit;
+  margin-right: 1rem;
+}
+
+input[type="checkbox"]:not(:checked) {
+    appearance: none; /* Removes native OS/browser styling */
+    -webkit-appearance: none; /* Core compatibility for Safari/Chrome */
+    
+    /* You must explicitly redefine dimensions and borders when using appearance: none */
+    width: 1em;
+    height: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    
+    /* Apply your custom unchecked background color */
+    background-color: var(--active-color); 
+    font-size: inherit;
+}
+
+input {
+    color: var(--fg);
+}
+
+.empty-page {
+    height: 100%;
+    align-content: center;
+    transition: var(--transition);
+    /* text-align: center; */
+
+    .logo {
+        font-size: var(--step-6);
+        font-family: var(--serif-font);
+    }
+
+    p {
+        opacity: 0.8
+    }
+}
+
+
+.settings-button {
+    position: fixed;
+    top: var(--padding-inline);
+    right: var(--padding-inline);
+    height: 3rem;
+    /* border-radius: 100vw; */
+    /* aspect-ratio: 1/1; */
+    cursor: pointer;
+    .material-symbols-rounded {
+        font-size: var(--step-3);
+    }
+}
+
+/* .settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    inset: 0;
+    width: 100svh;
+    height: 100svh;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.settings-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: hsl(from var(--bg) h s l / 0.5);
+} */
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--padding-inline);
+  --settings-blur: calc(var(--active-blur) / 15);
+}
+
+.settings-backdrop {
+  position: absolute;
+  inset: 0;
+  background: hsl(from var(--bg) h s l / 0.3);
+  backdrop-filter: blur(var(--settings-blur));
+}
+
+.settings-panel {
+  position: relative;
+  z-index: 1;
+  width: min(500px, 90%);
+  max-height: min(90vh, 900px);
+  overflow: auto;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: var(--active-color);
+  color: var(--fg);
+  backdrop-filter: blur(var(--settings-blur));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+
+  * {
+    margin: 0;
+  }
+}
+
+.settings-header h1 {
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--serif-font);
+  font-size: var(--step-5);
+}
+
+.settings-content {
+    margin-top: var(--padding-inline);
+    padding-top: var(--padding-inline);
+    border-top: 1px solid var(--border-color);
+    display: grid;
+    gap: 1rem;
+}
+
+.settings-content h2 {
+    font-size: var(--step-4);
+    margin-top: var(--padding-inline);
+}
+
+.buttons {
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+
+    button {
+        padding-inline: calc(var(--padding-inline));
+        padding-block: calc(var(--padding-inline) / 2);
+        font-size: inherit;
+        border-radius: 100vw;
+        cursor: pointer;
+    }
+
+    button:disabled {
+        cursor:default;
+        background-color: hsl(from var(--bg) h s calc(l/1.2));
+        color: hsl(from var(--fg) h s l / 0.5);
+    }
+}
+
+.storage-info {
+    span {
+        opacity: 0.6;
+    }
+}
+
+.storage {
+    display: grid;
+    gap: 1rem;
+}
+
+.storage-visual {
+  position: relative;
+  height: 0.5em;
+  border-radius: 100vw;
+  overflow: hidden;
+}
+
+.storage-total,
+.storage-occupied {
+  position: absolute;
+  inset: 0;
+}
+
+.storage-total {
+  background: hsla(from var(--primary) h s l / 0.3);
+}
+
+.storage-occupied {
+  background: var(--primary);
+  border-radius: 100vw;
+}
+
+.colors {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.themes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.saved-theme .theme-preview {
+    height: 6rem;
+    padding: var(--padding-inline);
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    small {
+        opacity: 0.8;
+    }
+
+}
+
+.theme-inputs .theme-preview {
+    position: relative;
+    height: 4rem;
+
+    span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+}
+
+input[type=color] {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* 4. Style the actual colored area for Firefox */
+input[type="color"]::-moz-color-swatch, input[type="color"]::-webkit-color-swatch {
+    /* border-radius: 100vw; */
+    border: none;
+    outline: none;
+}
+
+
+@media (max-width: 700px) {
+  .themes,
+  .theme-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-panel {
+    padding: 1rem;
+  }
+}

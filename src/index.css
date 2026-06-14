@@ -1,0 +1,70 @@
+/* @link https://utopia.fyi/type/calculator?c=360,16,1.125,1440,16,1.125,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root {
+  --step--2: clamp(0.7901rem, 0.7901rem + 0vw, 0.7901rem);
+  --step--1: clamp(0.8889rem, 0.8889rem + 0vw, 0.8889rem);
+  --step-0: clamp(1rem, 1rem + 0vw, 1rem);
+  --step-1: clamp(1.125rem, 1.125rem + 0vw, 1.125rem);
+  --step-2: clamp(1.2656rem, 1.2656rem + 0vw, 1.2656rem);
+  --step-3: clamp(1.4238rem, 1.4238rem + 0vw, 1.4238rem);
+  --step-4: clamp(1.6018rem, 1.6018rem + 0vw, 1.6018rem);
+  --step-5: clamp(1.802rem, 1.802rem + 0vw, 1.802rem);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--sans-font);
+}
+
+:root {
+    --sans-font: "Inter", sans-serif;
+    --serif-font:"Viaoda Libre", serif;
+    --padding-inline: clamp(1rem, 1vw, 2rem);
+
+    --border-radius: 10px;
+
+    --transition: 0.1s ease-out;
+
+    /* * Colors */
+
+    --bg: #1f2b72;
+    --fore: #25e048;
+    --bg-contrast: contrast-color(var(--bg));
+    --fg: color-mix(in srgb, var(--fore) 50%, var(--bg-contrast) 50%);
+    --primary: #4985da;
+    --primary-content: contrast-color(var(--primary));
+}
+
+::selection {
+    background-color: var(--fg); /* Custom background color (e.g., gold) */
+    color: var(--bg);            /* Custom text color (e.g., black) */
+}
+
+body {
+    margin: 0;
+    background-color: hsl(from var(--bg) h s calc(l / 1.05));
+    color: var(--fg);
+}
+
+.color-button {
+    border: none;
+    outline: transparent;
+    background-color: hsl(from var(--primary) h s l / 0.8);
+    color: color-mix(in oklab, var(--primary-content) 80%, var(--fg ) 20%);
+    transition: var(--transition);
+    
+    .material-symbols-rounded {
+        translate: 0 0.2rem;
+    }
+}
+
+.color-button:disabled {
+    transition: var(--transition);
+    background-color: hsl(from var(--primary) h s calc(l/1.2));
+    color: hsl(from var(--fg) h s l / 0.5);
+}
+
+.color-button:hover:not(:disabled) {
+    background-color: var(--primary);
+    transition: var(--transition);
+}
