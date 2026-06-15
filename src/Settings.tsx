@@ -66,11 +66,11 @@ export function SettingsPanel({isSettingsOpen, setIsSettingsOpen}: {isSettingsOp
                         <div className="storage-visual">
                             <div className="storage-total" style={{width: '100%'}} />
                             {/*<div className="storage-occupied" style={{width: `30%`}} />*/}
-                            <div className="storage-occupied" style={{width: `calc(${storage.current[1]} / ${storage.total[1]} * 100%)`}} />
+                            <div className="storage-occupied" style={{width: `calc(${Number(storage.current[1])} / ${Number(storage.total[1])} * 100%)`}} />
                         </div>
                     </div>
                     <div className="buttons">
-                        <button className="clear-storage color-button" onClick={() => clearStorage()} disabled={storage.current[1] <= "4"}><Icon icon="delete" /> Clear Data</button>
+                        <button className="clear-storage color-button" onClick={() => clearStorage()} disabled={Number(storage.current[1]) <= 4}><Icon icon="delete" /> Clear Data</button>
                         <button className="refresh-storage color-button" onClick={() => refreshStorage()}><Icon icon="undo" /> Refresh</button>
                     </div>
                 </div>

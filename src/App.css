@@ -290,9 +290,9 @@
 }
 
 
-.tiptap p.is-editor-empty:first-child .ProseMirror-trailingBreak, .tiptap p.is-empty .ProseMirror-trailingBreak  {
+/* .tiptap p.is-editor-empty:first-child .ProseMirror-trailingBreak, .tiptap p.is-empty .ProseMirror-trailingBreak  {
   display: none !important;
-}
+} */
 
 input[type="checkbox"] {
   accent-color: var(--primary);

@@ -20,10 +20,11 @@ export function usePersistentState<T>(key: string, defaultValue: T) {
     return [value, setValue] as const;
 }
 
-export function analyseLocalStorage(mode: "total" | "occupied") : string[] {
+export async function analyseLocalStorage(mode: "total" | "occupied"): Promise<string[]> {
     switch (mode) {
         case "total": {
-            return calculateTotalSize();
+            // Returns the promise directly without stringifying it
+            return calculateTotalSize(); 
         }
         case "occupied": {
             const availableSize = JSON.stringify(localStorage).length * 2;
@@ -45,23 +46,30 @@ export function analyseLocalStorage(mode: "total" | "occupied") : string[] {
         return size.toFixed(2) + ' ' + units[unitIndex];
     }
 
-
-    function calculateTotalSize() {
+    async function calculateTotalSize(): Promise<string[]> {
         if (localStorage.length === 0) {
-            let data = "0";
-            while (true) {
-                try {
-                    localStorage.setItem('DATA', data);
-                    data = data + data;
-                } catch (error) {
-                    const maxSize = JSON.stringify(localStorage).length;
-                    // JS strings are UTF-16 encoded, so each character takes 2 bytes
-                    localStorage.removeItem('DATA');
-                    const readableSize = convertBytesToReadableSize(maxSize * 2);
-                    console.log(error);
-                    return [readableSize, (maxSize * 2).toString()];
+            localStorage.clear(); 
+            let data = "X";
+            let totalAllocated = 0;
+
+            while (data.length < 102400) { data += data; } 
+
+            // Return the Promise directly
+            return new Promise<string[]>((resolve) => {
+                function fillLoop() {
+                    try {
+                        localStorage.setItem(`test_chunk_${totalAllocated}`, data);
+                        totalAllocated += data.length;
+                        setTimeout(fillLoop, 0); 
+                    } catch (e) {
+                        console.log(e);
+                        localStorage.clear();
+                        const total = (totalAllocated * 2);
+                        resolve([convertBytesToReadableSize(total), total.toString()]);
+                    }
                 }
-            }
+                fillLoop();
+            });
         } else {
             throw new Error("Storage not empty.");
         }
